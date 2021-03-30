@@ -1,6 +1,5 @@
 # Development Environment 
-
-Using: VS Code (coder-server) with Julia Extension
+## VS Code (coder-server) with Julia Extension
 
 * I am coming from RStudio so I am very, very spoiled. 
 * I like VS Code so I decided to set up a cloud-based VS code instance using 
@@ -22,3 +21,8 @@ Using: VS Code (coder-server) with Julia Extension
   amazingly rich ecosystem!
 * Inline results are something else! Much better than a notebook interface and 
   better than also constantly looking at the console.
+
+## OhMyREPL.jl
+
+* That's cool! Packages can modify the REPL to a deep level. 
+* `~/.julia/config/startup.jl` is the equivalent of the `.Rprofile` file
