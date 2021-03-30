@@ -7,11 +7,15 @@ makedocs(
     modules = [LearningJulia],
     pages = [
         "Introduction" => "index.md",
+        "General" => [
+            "Ecosystem" => "ecosystem.md"
+        ],
         "Learning Areas" => [
             "Development Environment" => "dev_env.md",
             "Databases" => "databases.md",
             "Documentation" => "documentation.md",
-            "Data Frames" => "dataframes.md"
+            "Data Frames" => "dataframes.md",
+            "Object-Relational Mapping" => "orm.md"
         ]
     ]
 )
