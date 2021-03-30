@@ -387,6 +387,12 @@ uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
 [[NetworkOptions]]
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
 
+[[Octo]]
+deps = ["Dates"]
+git-tree-sha1 = "42c8f65fc8d357ae33d4648d30bf570ad674d60e"
+uuid = "16905944-f982-529b-abb2-b839f98f160b"
+version = "0.2.8"
+
 [[OffsetArrays]]
 deps = ["Adapt"]
 git-tree-sha1 = "b3dfef5f2be7d7eb0e782ba9146a5271ee426e90"

@@ -9,14 +9,13 @@ makedocs(
         "Introduction" => "index.md",
         "Learning Areas" => [
             "Development Environment" => "dev_env.md",
-            "Databases" => "databases.md"
+            "Databases" => "databases.md",
+            "Documentation" => "documentation.md",
+            "Data Frames" => "dataframes.md"
         ]
     ]
 )
 
-# Documenter can also automatically deploy documentation to gh-pages.
-# See "Hosting Documentation" and deploydocs() in the Documenter manual
-# for more information.
-#=deploydocs(
-    repo = "<repository url>"
-)=#
+# deploydocs(
+#     repo = "github.com/tjpalanca/LearningJulia.jl.git",
+# )
