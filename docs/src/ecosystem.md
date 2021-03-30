@@ -7,4 +7,4 @@
 * I'm seeing that the Pkg registration process is quite general, so now I'm 
   struggling to find a way to easily gate the quality of packages and the 
   updated-ness of packages I want to use.
-
+ 
