@@ -12,6 +12,7 @@ Using: `LibPQ.jl`, `Octo.jl`, `Stipple.jl`
 ## LibPQ.jl
 
 * Is there something more high level that I can use? 
+
 ### Reading
 
 * With this, I'm able to to make queries and execute them, it's quite low level
@@ -47,9 +48,9 @@ Using: `LibPQ.jl`, `Octo.jl`, `Stipple.jl`
 # Query.jl 
 
 > The package currently provides working implementations for in-memory data
-sources, but will eventually be able to translate queries into e.g. SQL. There
-is a prototype implementation of such a "query provider" for SQLite in the
-package, but it is experimental at this point and only works for a very small
-subset of queries.
+> sources, but will eventually be able to translate queries into e.g. SQL. There
+> is a prototype implementation of such a "query provider" for SQLite in the
+> package, but it is experimental at this point and only works for a very small
+> subset of queries.
 
 This one is super promising but isn't implemented yet.

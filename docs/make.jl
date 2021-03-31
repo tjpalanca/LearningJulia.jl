@@ -9,6 +9,7 @@ makedocs(
         "Introduction" => "index.md",
         "General" => [
             "Ecosystem" => "ecosystem.md"
+            "Language" => "language.md"
         ],
         "Learning Areas" => [
             "Development Environment" => "dev_env.md",

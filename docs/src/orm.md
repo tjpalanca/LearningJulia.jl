@@ -1,3 +1,3 @@
 # Object-Relational Mapping
 
-Using: `Stipple.jl` 
+Using: `Stipple.jl`, `Octo.jl`
