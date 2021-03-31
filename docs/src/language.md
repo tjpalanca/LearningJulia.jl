@@ -1,5 +1,9 @@
 # Julia Language Features
 
+```@contents
+Pages = ["language.md"]
+Depth = 2
+```
 ## General observations
 
 * I love the named slurping and splatting, an improvement of the R syntax
@@ -13,6 +17,20 @@
 * Do-block syntax - interesting, the function is first and then the iterable in 
   Julia's `map()` as opposed to R's `purrr::map()`.
 
+## Variable Scope
+
+* Global and local scope
+* `if` and `begin/end` blocks do not introduce new scopes
+* Julia uses _lexical scoping_ which means that the function's scope inherits
+  from where the function was defined (like in R). You can refer to variables 
+  outside the scope in the parent.
+* Constants can be defined by `const` this does not allow changing the value 
+  after; this really helps the compiler.
+* Each module intorduces a new global scope that is a separate world form other
+  modules (oh boy this is where we can finally resolve the problem of too many
+  conflicting names in R). `using` and `import` allow transportation of objects
+  between those scopes. You can copy but you cannot insert and modify between 
+  modules.
 ## Functions 
 
 * Function composition and piping!
@@ -74,5 +92,21 @@ end
 * Throw exceptions using `throw(DomainError(x, "argument is not part of domain"))`
 * `showerror` method on that error type allows you to define how that error 
   will be displayed
+* `stop()` in R would be `error` throwing an `ErrorException` 
+* `try` - `catch` - `end` is implemented like so:
+
+```julia
+try 
+  sqrt("ten")
+catch e # this e is the exception 
+  println("Needs to be numeric not a string")
+end 
+```
+
+* can do inline try catch using `try condition catch e; expression end`
+* `finally` can be added to ensure that things are finalized (close db or file 
+  connections and whatnot).
+
+## Types
 
 

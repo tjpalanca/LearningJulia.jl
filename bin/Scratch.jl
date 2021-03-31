@@ -25,3 +25,5 @@ throw(DomainError(x, "argument is not part of domain"))
 
 typeof(DomainError)
 typeof(DomainError(nothing))
+
+error("negative x not allowed")
