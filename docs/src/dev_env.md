@@ -26,3 +26,8 @@
 
 * That's cool! Packages can modify the REPL to a deep level. 
 * `~/.julia/config/startup.jl` is the equivalent of the `.Rprofile` file
+
+## Pluto.jl
+
+* This is an interesting notebook interface that I want to take a look at.
+* 

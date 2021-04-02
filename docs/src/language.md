@@ -109,4 +109,50 @@ end
 
 ## Types
 
+### General type system
 
+* Julia's type system is ultimately dynamic but gains compiler advantages from
+  type annotations.
+* Type annotations serve 3 purposes:
+  1. take advantage of Julia's powerful multiple-dispatch mechanism
+  2. improve human readability
+  3. catch programming errors
+* Why can't you inherit from a concrete type?
+  * inherit behavior (methods) more important than inheriting structure
+    * but I mean why not both?
+  * there are some difficulties with inheriting structure (? - unanswered)
+* Salient aspects:
+  * No divison between object and non-object values
+  * No compile time type
+  * Only values have types not variables
+
+### Type declarations
+
+* `::` operator: "is an instance of"
+* `(1 + 2)::Int` is a type assertion 
+* `x::Int = 1` is a type restriction of that variable
+* `function sinc(x)::Float64` is a type restriction on the result
+
+### Abstract types
+
+* Cannot be instantiated
+* `abstract type «name» end`
+* Default supertype is `Any` - all objects are instances of
+* Bottom type is `Union{}` nothins is a `Union{}` and all are supertypes
+* `<:` is operator for "is a subtype of"
+
+### Primitive types
+
+* You can declare these as bits but why?
+* `primitive type <<name>> <: <<supertype>> <<bits>> end`
+
+### Composite Types
+
+* composed of primitive types, called records or   structs or objects
+* Julia composite types cannot have methods in them, the methods are outside
+* By default two constructors area created which is just a 
+  function with the elements of the struct as arguments, and one that takes
+  `Any` type and attempts to do the conversion.
+* Structs are immutable (like pretty much anything in R except environments) 
+  primarily for performance and secondarily for readability. They can be 
+  made mutable using a `mutable struct` keyword though.
