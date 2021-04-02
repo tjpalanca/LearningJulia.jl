@@ -8,8 +8,8 @@ makedocs(
     pages = [
         "Introduction" => "index.md",
         "General" => [
-            "Ecosystem" => "ecosystem.md",
             "Language" => "language.md",
+            "Ecosystem" => "ecosystem.md",
             "Development Environment" => "dev_env.md",
             "Documentation" => "documentation.md",
         ],
@@ -21,7 +21,7 @@ makedocs(
         "Data Science" => [
             "Data Frames" => "dataframes.md",
             "Computation" => "computation.md",
-            "Visualization" => "visualization"
+            "Visualization" => "visualization.md"
         ],
         "Interoperability" => [
             "Python" => "python.md"
