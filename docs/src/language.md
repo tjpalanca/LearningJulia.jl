@@ -1,4 +1,4 @@
-# Julia Language Features
+# Julia Language
 
 ```@contents
 Pages = ["language.md"]
@@ -16,6 +16,10 @@ Depth = 2
   that is quite easy in R and I suspect quite easy in Julia too with the macros.
 * Do-block syntax - interesting, the function is first and then the iterable in 
   Julia's `map()` as opposed to R's `purrr::map()`.
+* There's a lot of reference to language design here and I feel like I'm also
+  learning about it as I read through how to actually use Julia.
+
+# Reading through the Julia Language Manual
 
 ## Variable Scope
 
@@ -249,3 +253,42 @@ end
 * You can dispatch on the actual value of a type using the `Val` keyword, but
   this is likely to be not idiomatic.
 
+## Methods
+
+> To facilitate using many different implementations of the same concept 
+> smoothly, functions need not be defined all at once, but can rather be defined
+> piecewise by providing specific behaviors for certain combinations of 
+> argument types and counts. 
+
+* A "function" is 
+  * an object that maps a tuple of argyuments to a return value or throws 
+    an exception if no appropriate value can be returned.
+  * a conceptual operation that may be abstract
+* A "method" is 
+  * a specific concrete implementation or behavior of a fucntion.
+  * a function defined is usually just one method
+* Even if the concrete implementation is quite different, well designed dispatch
+  will appear very coherent from the outside.
+* Multiple dispatch (like R's S4 but more deliberately made lol)
+  * Most specific (lower on the type tree) will be used.
+* Ambiguities in selecting most specific type raise an error.
+* Just define a function but with type annotations and voila it's a method of 
+  that function (already that's less typing than R)
+* All conversion in Julia is explicit (also different from R)
+* Use `methods(f)` to figure out the methods attached to the generic
+* No type means the `Any` apex type.
+
+### Parametric Methods
+
+* you can also define methods like so: `same_type(x::T, y::T) where {T}` which 
+  applies whenever both `x` and `y` are of the same type.
+* You can also constrain those parameters by doing `where {T<:Real}`
+
+### Redefining methods
+
+* You cannot immediately use new method definitions as soon as you defined them
+  usually in the same expression; use `Base.invokelatest(f)` to get around this.
+
+### Design patterns
+
+* **Extracting the type parameter from a super-type** 
