@@ -31,6 +31,7 @@ Depth = 2
   conflicting names in R). `using` and `import` allow transportation of objects
   between those scopes. You can copy but you cannot insert and modify between 
   modules.
+
 ## Functions 
 
 * Function composition and piping!
@@ -156,4 +157,95 @@ end
 * Structs are immutable (like pretty much anything in R except environments) 
   primarily for performance and secondarily for readability. They can be 
   made mutable using a `mutable struct` keyword though.
-* 
+* How do you decide whether a type can be immutable or not? Ask yourself if 
+  two objects that have exactly the same fields are identical. If they are,
+  it's usually an indicator that you want an immutable type.
+* All these declared types are of type `DataType`
+
+### Type Unions
+
+* You moosh together two types and anything inherits from that like so:
+  `IntOrString = Union{Int, AbstractString}`
+* `Union{T, Nothing}` is essentially a nullable type because it can be the
+  special value `nothing`.
+
+### Parametric types
+
+* You can declare a parametric type like so:
+
+```julia
+struct Point{T}
+  x::T
+  y::T
+end
+```
+
+* `Point` is also a type containing any of its parameterized equivalents as 
+   subtypes.
+* `Point{Float64}` is not a subtype of `Point{Real}`, so in order to define a 
+  method that allows dispatching on both, use this form: 
+
+```julia
+function norm(p::Point{<:Real}) end 
+```
+
+* `Point{<:Real}` is really just a Point that is a `UnionAll` of all the 
+  subtypes of `Real`, which explains how it works. You can also do 
+  `Point{>:Int}` to get all the supertypes of `Int`. 
+* If you use the constructor in a way, it already defins the parameteric types,
+  i.e. calling `Point(1.0, 2.0)` will generate a `Point{Float64}` automatically.
+* You can declare types as subtypes of parametric abstract types just like 
+  any other type.
+
+### Tuple Types
+
+* Function arguments are tuples, which are really like immutable structs that 
+  are parameterized by the type of each arugment, but some differences:
+  1. Tuple types can have any number of parameters 
+  2. Typle types are covariant, so `Tuple(Int)` is a subtype of `Tuple(Any)`.
+  3. Types do not have field names and are accessed by index.
+* `(1, "foo", 2.5)` is a tuple
+* Tuples may have `Vararg{T, N}` which can match 0 to N arguments (Inf if `N`
+  is omitted. There is a convenience `NTuple{N,T}` to represent a Tuple that has
+  N elements of type T.
+
+### Named Tuple types 
+
+* Is this the named list in R?
+* It has a tuple of symbols and a tuple of field types:
+  `NamedTuple{(:a, :b), Tuple{Int64, String}}
+* You can use `@NamedTuple` to provide a more convenient struct-like syntax:
+
+```julia
+@NamedTuple begin 
+  a::Int
+  b::String 
+end
+```
+
+### UnionAll Types
+
+* `Array{<:Integer}` is effectively `Array{T} where T<:Integer`.
+* You can short form a type definition using: `Vector{T} = Array{T, 1}`
+
+### Singleton Types
+
+* Immutable composite types with no fields: `struct NoFields end`
+
+### Operations on Types
+
+* `isa(x, y)` or `x <: y` checks for subtypes
+* `typeof()` returns the type of its argument
+* `supertype()` returns the supertype of its argument
+
+### Custom pretty-printing
+
+* Overload the `show` function: `Base.show(io::IO, z::Polar)`
+* You can also change the output based on the MIME type:
+  `Base.show(io::IO, ::MIME"text/plain", z::Polar{T})`
+
+### Value types
+
+* You can dispatch on the actual value of a type using the `Val` keyword, but
+  this is likely to be not idiomatic.
+

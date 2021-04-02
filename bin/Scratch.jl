@@ -45,3 +45,40 @@ end
 Foo("Hello World", 23, 1.5)
 Foo("Hello World", 23.5, 1.5)
 
+typeof(Foo)
+
+    IntOrString = Union{Int, AbstractString}
+
+1::IntOrString
+
+"Hello!!"::IntOrString
+
+1.53::IntOrString
+
+struct Location{T}
+    lon::T
+    lat::T
+end
+
+Location{Float64} <: Location{Real}
+Location{Float64} <: Location{<:Real}
+Location{Real} <: Location{>:Float64}
+
+struct LocationReal{T<:Real} 
+    lon::T
+    lat::T
+end 
+
+LocationReal("Hello World", "Long")
+LocationReal(1.0, 1.0) |> typeof
+LocationReal(1, 2) |> typeof
+
+struct NoFields end
+NoFields() == NoFields()
+NoFields() === NoFields()
+Base.issingletontype(NoFields)
+
+mutable struct MutableNoFields end 
+MutableNoFields() == MutableNoFields()
+MutableNoFields() === MutableNoFields()
+
