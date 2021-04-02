@@ -20,13 +20,15 @@ makedocs(
         ],
         "Data Science" => [
             "Data Frames" => "dataframes.md",
-            "Computation" => "computation.md"
+            "Computation" => "computation.md",
+            "Visualization" => "visualization"
         ],
         "Interoperability" => [
             "Python" => "python.md"
         ],
         "Applications" => [
-            "Smart Home" => "smart_home.md"
+            "Smart Home" => "smart_home.md",
+            "Blogging" => "blogging.md"
         ]
     ]
 )

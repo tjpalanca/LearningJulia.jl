@@ -156,3 +156,4 @@ end
 * Structs are immutable (like pretty much anything in R except environments) 
   primarily for performance and secondarily for readability. They can be 
   made mutable using a `mutable struct` keyword though.
+* 

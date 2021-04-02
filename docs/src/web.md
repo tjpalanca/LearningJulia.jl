@@ -13,3 +13,5 @@ This seems to be one of the most fundamental web libraries in Julia.
 ## Genie.jl ecosystem
 
 ## Dance.jl
+
+## JSServe.jl
