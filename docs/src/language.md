@@ -453,3 +453,52 @@ end
 * Customizing broadcasting - also over my head but I can see how that can be 
   super useful for building actual machine learning models.
   
+## Modules
+
+* would be the whole package scope in an R package I suppose
+* key properties are: 
+  1. separate namespaces - avoids conflicts in function names
+  2. has `import` and `export` for defining what it needs and what it provides
+     other modules (by default, there is no private namespace)
+  3. Modules can be precompiled for faster loading and contain code for 
+     running initialization.
+* module code is typically organized into files and then read in using 
+  `include("file1.jl")`. 
+* although related `include` is just adding the code in the file into wherever 
+  it is and modules can be composed around or within that any which way.
+* `parentmodule` finds the module that an object is contained
+* You can reserve variable names by declaring `global x` so that it cannot be 
+  modified from outside the module.
+* `using` loads all exports into the `Main` namespace, whereas `import` just
+  brings the module name into scope, so you'd need to quality everything in 
+  there in order to use it. 
+  * `using Module: name1, name2` only brings specific names into global scope
+    and the module name will not be in scope unless you also include it in 
+    the names list. You can't add methods to a function without a namespace 
+    (as it's "using")
+  * `import Module: name1, name2` brings in the specific names and also 
+    allows you to attach methods (usually done in other modules)
+* You can use `as` to work around namespace conflicts like 
+  `import CSV: read as rd` or `importBenchmarkTools as BT`. This is not 
+  compatible with `using`/.
+* When modules export the same name:
+  1. Use qualified name especially when they mean different things
+  2. use the keyword to reanme one or both with unqiue identifiers.
+  3. If they do share the same meaning then there is a unifier base package.
+* `Base` and `Core` are in the modules unless you define `baremodule`
+* `import .Module` imports a module defined in the current scope, 
+  `import ..Module` imports a module defined in the parent module and so on.
+  `..` is essentially a "sibling" module.
+
+### Module initialization and pre-compilation
+
+* Whenever something is `import`-ed or `using`-ed the modulem is precompiled.
+  Trigger manually using `Base.compilecache`
+* Put `__precompile__(false)` in the module file at the top to prevent a module
+  from being precompiled. 
+* Don't precompile any external dependencies but rather define them at 
+  runtime using the `__init__()` function, like external C libraries and global 
+  constants that containe pointers returned by external library
+* Dictionaries can be safe to precompile if the key is generally standard types,
+  not weird ones like `Function` or `DataType` or user-defined types without 
+  a defined hash method.
