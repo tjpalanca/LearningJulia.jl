@@ -82,3 +82,29 @@ mutable struct MutableNoFields end
 MutableNoFields() == MutableNoFields()
 MutableNoFields() === MutableNoFields()
 
+# Methods
+
+AbstractArray
+eltype(::Type{<:AbstractArray{T}}) where {T} = T
+eltype(AbstractArray{Real})
+eltype(::Type{<:AbstractArray{H}}) where {H} = H
+eltype(AbstractArray{AbstractString})
+
+X = [1, 2, 3]
+typeof(X)
+similar(X, Float64, 10)
+
+struct Polynomial{R}
+    coeffs::Vector{R}
+end
+
+function(p::Polynomial)(x)
+    v = p.coeffs[end]
+    sum(p.coeffs .* x)
+    return v
+end 
+
+(p::Polynomial)() = p(5)
+
+p = Polynomial([1, 10, 100])
+p(3)

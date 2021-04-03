@@ -291,4 +291,62 @@ end
 
 ### Design patterns
 
-* **Extracting the type parameter from a super-type** 
+* **Extracting the type parameter from a super-type** - You can use this 
+  method to extract the type inside a parameterized type:
+
+```julia
+eltype(::Type{<:AbstractArray{T}}) where {T} = T
+```
+
+* **Building a similar type with a different type parameter** - Use 
+  `Base.similar` to create a mutable array with the given element type and 
+  size. Use `Base.copyto!` in order to always create a copy.
+* **Iterated dispatch** - You can dispatch first on the outer container then 
+  continue down the dispatch tree (similar to single dispatch).
+* **Trait-based dispatch (Holy trait)** - This stuff is really getting over my 
+  head now haha. 
+
+```julia
+map(f, a::AbstractArray, b::AbstractArray) = map(Base.IndexStyle(a, b), f, a, b)
+# Base.IndexStyle(a, b) returns a trait that is going to return the best way 
+# to index that particular set of parameters, and then you can just fall back 
+# to the default implementation so you don't have to keep a tree.
+map(::Base.IndexCartesian, f, a::AbstractArray, b::AbstractArray)
+```
+
+* **Output-type computation** - `Base.promote_type` decides the output type 
+  of the computation for the basic types. 
+* **Separate convert and kernel logic** - to reduce compile time is to isolate
+  the conversion logic and the computation. 
+* **Parametrically-constrained Varargs methods** - use the same parameter in 
+  the operated objected and the varargs so you can constrain the methods
+
+### Some function gotchas
+
+* Note: keyword arguments do not operate on multiple dispatch
+* Note: default arguments are going to bne overridden if you specify a more 
+  specific implementation afterwards.
+
+### Function-like objects
+
+* You can turn a type into a function that operates!
+* This is very similar to R where functions are first class objects.
+
+### Empty generic functions 
+
+* Use this to define a specific interface: `function emptyfunc end` 
+
+### Method design and the avoidance of ambiguities
+
+* Ambiguities can be hard to deal, here are some alternatives to just deifining
+  a more specific method:
+  * `Tuple` and `NTuple` arguments - in the empty case they are ambiguous as 
+    to type so you can either define one on empty type or restrain your
+    NTuple arguments to only where N > 1
+  * Orthogonalized design - nest the methods
+  * Dispatch on one argument at a time (Single dispatch)
+  * Don't define methods that dispatch on specific element types of 
+    abstract containers, instead you should just define on a generic method and 
+    construct a conceptual tree before specializing.
+  * When recursing avoid relying on default arguments because you can cause 
+    an infinite loop.
