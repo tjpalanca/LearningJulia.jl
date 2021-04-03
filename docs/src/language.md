@@ -350,3 +350,45 @@ map(::Base.IndexCartesian, f, a::AbstractArray, b::AbstractArray)
     construct a conceptual tree before specializing.
   * When recursing avoid relying on default arguments because you can cause 
     an infinite loop.
+
+## Constructors
+
+* It's just an automatically generated function that accompanies a struct.
+* "Outer constructors" - You can create new methods for it just like any other 
+  function
+  * Use the same value for fields
+  * Add default values
+* "Inner constructors"
+  * needed for 2 use cases:
+    1. enforcing invariants (validations)
+      * ensures that no object (if immutable) will violate the invariant
+      * you can't enforce with outer constructors because ultimately they 
+        must call an inner constructor
+    2. allowing construction of self-referential objects
+      * for recursive applications, you can call `new` without all the fields
+      * you can create a self referential object like this
+  * declared inside the block of a type declaration
+  * special access to a local function called `new` that is the default 
+    constructor
+
+```julia 
+struct OrderedPair
+  x::Real
+  y::Real
+  OrderedPair(x,y) = x > y ? error("out of order") : new(x,y)
+end
+```
+
+  * above object is now constraint to strictly decreasing
+  * it does not enforce this if the struct is mutable, so only immutable 
+    structs will have some sort of guarantee.
+  * Best practices for constructors:
+    * as few inner constructors as possible
+    * take all arguments explicitly and enforce essential error checking
+    * provide ocnveniences as outer construtors
+* Incomplete initialization
+  * For recursion
+* Parametric constructors
+  * Use the `promote` function heavily so that you can rationalize with only 1 
+    type.
+  

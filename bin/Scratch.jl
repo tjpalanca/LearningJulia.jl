@@ -108,3 +108,11 @@ end
 
 p = Polynomial([1, 10, 100])
 p(3)
+
+mutable struct SelfReferential
+    obj::SelfReferential
+    SelfReferential() = (x = new(); x.obj = x)
+end
+
+A = SelfReferential()
+A.obj
