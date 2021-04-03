@@ -391,4 +391,45 @@ end
 * Parametric constructors
   * Use the `promote` function heavily so that you can rationalize with only 1 
     type.
-  
+
+## Conversion and Promotion
+
+* Two approaches to promotion:
+  1. Automatic promotion for built-ins (Perl, Python) 
+    * 1 + 1.5 is automatically promoted to floating point  
+  2. No automatic promotion
+    * quite inconvenient
+* Julia falls into the no automatic promotion (#2) but implements some 
+  polymorphic multiple dispatch as a special application. It can be edited
+  by the user if they so choose and user-defined types can participate.
+
+### Conversion 
+
+* Just call the constructor on the object to be converted.
+* `convert(::DataType, x)` function is the function on which we add conversion
+  methods.
+* Julia does not aurtomatically convert between strings and numbers.
+* Conversion differs from construction in:
+  1. Mutable collections
+  2. Where it's not really a conversion
+  3. Wrapper types - types that wrap other value.
+  4. Constructors that don't rteturn instances of their own type.
+
+### Defining new conversions
+
+* It's just a metter of defining a method for `convert`
+* Only do this if implicit conversion is safe! Otherwise, rely on the 
+  constructor functions being explicitly called.
+
+### Promotion
+
+* Standardization of types prior to an operation.
+* Handled by the `promote()` method - **but** you don't define the rules on 
+  `promote` but on the `promote_rule(::DataType, ::DataType)` which doesn't
+  take the actual values but the datatypes. This is symmetric already so you
+  don't need to define the flipped datatypes. This feeds into a function called
+  `promote_type` that you can then use to actually determine what type the 
+  value will end up being.
+* Aiming to be as lossless as possible.
+
+

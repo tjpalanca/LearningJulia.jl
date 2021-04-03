@@ -28,7 +28,8 @@ makedocs(
         ],
         "Applications" => [
             "Smart Home" => "smart_home.md",
-            "Blogging" => "blogging.md"
+            "Blogging" => "blogging.md",
+            "Generative Art" => "generative.md"
         ]
     ]
 )
