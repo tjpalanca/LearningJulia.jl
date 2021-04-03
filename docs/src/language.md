@@ -432,4 +432,24 @@ end
   value will end up being.
 * Aiming to be as lossless as possible.
 
+## Interfaces
 
+* Iteration interface
+  * defining an `iterate` method will allow you to use 
+    1. `for` loops
+    2. `in` operator
+    3. `mean`, `std` etc
+  * defining `eltype` method will allow us to know more things like creating
+    specialized iterable code that's faster
+  * defining `length` allows us to preallocate and stuff like that
+  * defining `firstindex` and `lastindex` allow us to specify the first and 
+    last valid indices so we can use the `begin` and `end` indices
+* `AbstractArray` interface
+  * `IndexStyle` is important to define for efficiency
+  * This interface is extremely rich, simply defining:
+    `struct SquaresVector <: AbstractArray{Int, 1}` is enough to make it 
+    iterable, indexable, and completely functional.
+* Strided Arrays - a lot over my head
+* Customizing broadcasting - also over my head but I can see how that can be 
+  super useful for building actual machine learning models.
+  

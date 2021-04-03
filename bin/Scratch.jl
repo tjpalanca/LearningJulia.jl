@@ -116,3 +116,20 @@ end
 
 A = SelfReferential()
 A.obj
+
+# Interfaces
+
+## Iteration
+
+using Compose
+
+struct Circles
+    count::Int
+end 
+
+Base.iterate(C::Circles, state=1) = 
+    state > C.count ? nothing : (Compose.circle(), state + 1)
+
+for item in Circles(7)
+    println(item)
+end
