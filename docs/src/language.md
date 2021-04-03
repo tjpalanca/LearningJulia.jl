@@ -502,3 +502,51 @@ end
 * Dictionaries can be safe to precompile if the key is generally standard types,
   not weird ones like `Function` or `DataType` or user-defined types without 
   a defined hash method.
+
+## Documentation
+
+* Docstrings basically, interpreted as Markdown handled by `Markdown.jl`.
+* Standard for a docstring:
+
+```julia
+"""
+    bar(x[, y]) # function signature with indent, optional with [], kwargs with ;
+  
+Imperative format of title ending with a period.
+
+Additional details in a second paragraph that explains more implem details. Be 
+concise and don't repeat yourself. 
+
+# Arguments 
+
+This part is only necessary if it's a complex function and those with kwargs.
+
+See also: [`bar!`](@ref) # Hints to related functions 
+
+# Examples
+
+Written as doctests whenever possible
+
+\```jldoctest 
+julia> code to run
+output that matches the output exactly. Use [...] to truncate the output.
+\```
+"""
+```
+
+* `code` and ``LATEX``
+* 92 characters wide max
+* Function implementation for custom types can be in an Implementation section.
+  Intended for developers rather than users.
+* Long docstrings can be split off to an extended help header tahn can be 
+  called explicitly by adding ??function rather than ?function
+* Ideally only the generic function needs to be documented, no need to 
+  document the individual methods, unless the behavior differs explicitly.
+* `@doc` macro allows you to insert expressions into the documentation. 
+* Use `$($name)` to use string interpolation in docstrings
+* You can define a method on `Docs.getdoc` to be able to operate on that 
+  type and access the data for it.
+* If you alias something, just document the original so that both can have 
+  the documentation.
+* You can add a docstring to two things separated by a comma.
+
