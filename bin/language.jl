@@ -219,3 +219,35 @@ readline(stdin)
 for line in eachline(stdin)
     print("Found $line")
 end
+
+# Parallel computing
+
+## Multi-threading
+
+a = zeros(10)
+
+Threads.@threads for i = 1:10 
+    a[i] = Threads.threadid()
+end
+
+a
+
+t = @task begin
+    sleep(5)
+    println("Task is done")
+end
+
+schedule(t)
+
+function produce_letters(c::Channel) 
+    put!(c, "A")
+    put!(c, "B")
+    put!(c, "C")
+end
+
+channel = Channel(produce_letters)
+
+take!(channel)
+take!(channel)
+take!(channel)
+take!(channel) # Errors out because it's exhausted/closed

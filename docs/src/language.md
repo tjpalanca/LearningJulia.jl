@@ -686,3 +686,34 @@ end
   then be `close`-ed to flush to disk.
 * TCP sockets are embedded in the `Sockets` standard library.
 
+## Parallel Computing
+
+* This is exciting! Native support for parallel images.
+* Asynchronous tasks (coroutines) 
+  * Communication via `Channel`s 
+  * `wait` and `fetch` syntax.
+  * Tasks are operations that can be interrupted and resumed at any time, is 
+    this pretty much like a `future` in R?
+  * Syntax
+    * `t = @task expr` to declare a task
+    * `schedule(t)` schedules it for execution
+    * `wait(t)` blocks until completion
+    * `@async` macro creates and schedules a task immediately
+  * Channel communication 
+    * waitable first-in first-out queue. 
+    * Producers `put!(::Channel)` while consumers `take!(::Channel)`
+    * `put!` blocks if Channel si full, `take!` blocks if it's empty.
+    * `fetch` gets the value but doesn't remove the value.
+    * closed channels can still be read from until it's empty.
+* Multithreading
+  * Set the `JULIA_NUM_THREADS` environment variable or use the command line 
+    argument `--threads` to set more than 1 thread.
+  * Be careful to avoid data races by acquiring a lock around any data that you 
+    suspect will be part of a data race. You can also make primitive types
+    atomic (thread-safe) bty wrapping it in Atomic like: `Threads.Atomic{Int}(0)`
+  * Use the `Threads.@threads` macro for a for loop to execute it in parallel.
+* Distributed computing
+  * Running multiple Julia processes with separate memory spaces. For this
+    we have the `Distributed` standard library.
+* GPU Computing
+  * You can run Julia code natively on GPUs using the JuliaGPU.org packages.
