@@ -133,3 +133,37 @@ Base.iterate(C::Circles, state=1) =
 for item in Circles(7)
     println(item)
 end
+
+# Metaprogramming 
+
+prog = "1 + 1"
+exp = Meta.parse(prog)
+typeof(exp)
+
+# This is the first part which identifies the kind of expression
+exp.head
+
+# This is the second part whihc calls the arguments 
+exp.args
+
+# Just like in R you can reconstruct them
+Expr(:call, :+, 1, 1)
+
+# You can eval the exp
+Meta.eval(exp)
+
+# Dump it to see the whole thing 
+dump(exp)
+
+exp2 = :(x + y * 2)
+Meta.@dump :(x + y * 2)
+
+# Macros
+
+macro sayhello(name)
+    return :( println("Hello there, ", $name) )
+end
+
+@sayhello "Troy"
+
+macroexpand(Main, :(@sayhello "Troy"))

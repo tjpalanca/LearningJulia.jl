@@ -550,3 +550,72 @@ output that matches the output exactly. Use [...] to truncate the output.
   the documentation.
 * You can add a docstring to two things separated by a comma.
 
+## Metaprogamming
+
+* Now this is going to be exciting!
+* All this (including R) inherits from Lisp.
+* Expressions have two parts (type `Expr`, `Expr(:call, :+, 1, 1)`)
+  * head: indicating the type of expression - `exp.head`
+  * args: the contents of the expression - `exp.args`
+* Expressions can be nested and manipulated
+* Symbols are represented as `:symbol`
+* `Symbol("func", 10)` turns into `func10` so you can manipulate the 
+  symbol with strings.
+* Quoting
+  * creation of expression objects 
+  * :(a + b * c + 1) turns the quote string into an expression 
+* Interpolation
+  * manipulating the expression objects without `Expr` using `$`
+  * `ex = :($a + b)` turns into `:(1 + b)` because a is evaluiated and 
+    `a = 1`.
+  * You can also do splatting interpolation through `$(xs...)`. 
+    `:(f(1, $(args...)))` turns into `:(f(1, x, y, z))`
+  * the `$` is kinda like `!!` in R and the splatted one is `!!!`
+  * You can nest down levels of quoting through `$$$....`
+  * `QuoteNode` avoids interpolating the :$
+* Evaluation
+  * You can execute the expression using `eval`
+  * `Module.eval` evaluates inside the global scope of the `Module`
+* You can define functions that manipulate these expressions
+* Macros
+  * including generated code in the final body of a program
+  * maps a tuple of arguments to a returned expression which is compiled 
+    directly instead of at runtime
+  * Think of the result of the macro being inlined into the code by the 
+    compiler and then that being compiled.
+  * Inspect the expressiong using `macroexpand` 
+      * `macroexpand(Main, :(@sayhello "Troy"))` - you need to include 
+        the module in which the macro will be evaluated.
+  * Macros receive the `__source__` and `__module__` argumens which contain 
+    the line number of the invocation and the information about the expansion 
+    module (like existing bindings).
+  * Macros rename local variabels to avoid name clashes with the module scope.
+    You can use `esc(ex)` to escape this and ignore hygiene.
+  * Macros are also functions and can therefore take advantage of multiple
+    dispatch, but they dispatch based on types of the AST not the evaluated
+    values of the expressions
+
+```julia
+macro sayhello()
+  return :( println("Hello there!") )
+end
+```
+
+* Boilerplate code can be generated programmatically using `eval` on a 
+  `quote ... end` with interpolation. You can use the eval/quote pattern
+  using the `@eval macro`
+
+### Non-standard string literals
+
+* You can define string literals like `r"^\s"` which is a regex or `b"..."` 
+  which is a byte array literal.
+* You can also take advantage of this by defining a macros that is of the form 
+  `{...}_str` which allows you to define a string literal `{...}"..."`.
+
+### Generated functions
+
+* You can define using `@generated` and the function should return a quoted
+  expression. 
+* I don't get this at all haha
+* There's also optionally generated functions.
+
