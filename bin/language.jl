@@ -210,3 +210,12 @@ typeof(missing)
 missing === missing
 
 Array{Union{Missing, String}}
+
+# Networking and Streams
+
+write(stdout, "Hello World");
+read(stdin, Char)
+readline(stdin)
+for line in eachline(stdin)
+    print("Found $line")
+end

@@ -678,3 +678,11 @@ end
 * `missing | true` returns `true` 
 * control flow does not allow for missing value, nor do short circuiting ops.
 * `skipmissing()` skips missing values (like the `na.rm = TRUE` argument)
+
+## Networking and Streams
+
+* Streams expose a `read` and a `write` with the stream as the first argument.
+* Files have `open` returning an `IOStream` object that can be used. This can 
+  then be `close`-ed to flush to disk.
+* TCP sockets are embedded in the `Sockets` standard library.
+
