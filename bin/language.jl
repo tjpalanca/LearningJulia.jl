@@ -204,3 +204,9 @@ C + E # This no longer works
 C .+ E # This now works
 min.(C, D)
 
+# Missing Values
+
+typeof(missing)
+missing === missing
+
+Array{Union{Missing, String}}

@@ -660,4 +660,21 @@ end
 * Dot syntax for vectorized operations
   * `sin.(x)`
   * `x .+ y`
-  
+
+## Missing Values
+
+* Yet another R feature that I really miss in Python, let's see what the 
+  implementation is!
+* `missing` in a math operation returns `missing`, but only because the core 
+  operations have handled these cases.
+* Functions that don't propagate missing values can do so by using the 
+  `Missings.jl.passmissing()` function.
+* `missing == missing` returns `missing`, so use `ismissing(x)` to test for 
+  missings. But the `isequal(missing, missing)` and `missing === missing` will
+  return `true`
+* `missing` is considered as greater than any other value so when sorted 
+  `missing`s will be at the end of the ascending order
+* `true | missing` returns `true`
+* `missing | true` returns `true` 
+* control flow does not allow for missing value, nor do short circuiting ops.
+* `skipmissing()` skips missing values (like the `na.rm = TRUE` argument)
