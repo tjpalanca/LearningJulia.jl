@@ -167,3 +167,40 @@ end
 @sayhello "Troy"
 
 macroexpand(Main, :(@sayhello "Troy"))
+
+zeros((2, 3))
+
+[1, 2, 3]
+
+eltype(["Hello"])
+
+x = rand(8)
+[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
+
+sum(1/n^2 for n=1:1000)
+
+A = reshape(1:32, 4, 4, 2)
+page = A[:,:,1]
+page[[
+    CartesianIndex(1,1),
+    CartesianIndex(2,2),
+    CartesianIndex(3,3),
+    CartesianIndex(4,4)
+]]
+page[CartesianIndex.(axes(A, 1), axes(A, 2))]
+A[CartesianIndex.(axes(A, 1), axes(A, 2)), :]
+
+B = [1, 2, 3, 4]
+B[[true, false, true, true]]
+
+C = [1, 2, 3]
+D = [3, 4, 5]
+C + D # This works
+sin(C + D) # This does not work!
+sin.(C + D) # This works
+
+E = [4, 5, 6, 7, 8, 9]
+C + E # This no longer works
+C .+ E # This now works
+min.(C, D)
+

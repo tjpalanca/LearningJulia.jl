@@ -52,6 +52,7 @@ Depth = 2
     * To avoid having too many dots then you can use the `@.` macro to add 
       dots to every singe funciton call in that line.
 * Anonymous functions use arrow like in JS: `(x) -> x + 2`
+
 ## Control Flow
 
 ### Expressions 
@@ -618,4 +619,45 @@ end
   expression. 
 * I don't get this at all haha
 * There's also optionally generated functions.
+* I feel like this is something where if we do it there's something wrong.
 
+## Multi-dimensional arrays
+
+* Arrays are first class but not really any special from any other object:
+  `AbstractArray`
+* There's no imperative to vectorize anything, it will be fast either way.
+* All arguments to functions are pased by sharing (pointers).
+* By convention ending with `!` will mean that it mutates its arguments.
+* You can concatenate by `[1:2, 4:5]`
+* `[1:2; 4:5]`
+* List comprehensions: A way to construct arrays (like set consturction in 
+  mathematics) `[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]`
+* Generator expressions: without the brackets, these won't be evaluated 
+  until you iterate on them. 
+* Indexing is done via square brackets: `A[I_1, I_2, ..., I_n]`
+  * `:` takes all indices for that particular dimension.
+  * `begin` and `end` are special words that take the begininning and end. 
+    the bracket is the method of `getindex` method for that type.
+  * Indexed assignment allows you to modify in place. indexed assignment is the 
+    method of `setindex!` for that type.
+  * Supported index types
+    1. scalar index that is an integer or an N-tuple corresponding to the dims:
+       `page[[CartesianIndex(1,1)]]`
+    2. Array of scalar indices `page[1:4, 1:4, 1]`
+    3. An object that represents an array of scalar indices and can be converted
+       using `to_indices`, such as `:` or arrays of booleans like a conditional:
+       `page[[true, true, false, false]]`
+  * Linear indexing is also possible when only one index `i` is given. This is 
+    done in column-major iteration order, like it was reshaped into a one
+    dimensional vector.
+  * You can omit indices if the trailing dimensions are just one-dimensional,
+    you can also add extra indices if the trailing dimensions are also just 
+    one dimensional.
+* Iteration
+  * Use a `for a in A # do something; end` loop
+  * Use a `for a in eachindex(A) #do something to A[i]; end` loop
+    * `a` in this case will be integer for linear otherwise CartesianIndex.
+* Dot syntax for vectorized operations
+  * `sin.(x)`
+  * `x .+ y`
+  
