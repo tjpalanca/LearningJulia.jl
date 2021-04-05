@@ -1,5 +1,6 @@
 # Development Environment 
-## VS Code (coder-server) with Julia Extension
+
+## VS Code (`code-server`) with Julia Extension
 
 * I am coming from RStudio so I am very, very spoiled. 
 * I like VS Code so I decided to set up a cloud-based VS code instance using 
@@ -30,4 +31,3 @@
 ## Pluto.jl
 
 * This is an interesting notebook interface that I want to take a look at.
-* 

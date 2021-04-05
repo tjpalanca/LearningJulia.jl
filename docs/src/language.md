@@ -710,10 +710,44 @@ end
     argument `--threads` to set more than 1 thread.
   * Be careful to avoid data races by acquiring a lock around any data that you 
     suspect will be part of a data race. You can also make primitive types
-    atomic (thread-safe) bty wrapping it in Atomic like: `Threads.Atomic{Int}(0)`
+    atomic (thread-safe) bty wrapping it in Atomic like: 
+    `Threads.Atomic{Int}(0)`
   * Use the `Threads.@threads` macro for a for loop to execute it in parallel.
 * Distributed computing
-  * Running multiple Julia processes with separate memory spaces. For this
-    we have the `Distributed` standard library.
+  * Running multiple Julia processes with separate memory spaces. 
+  * For this we have the `Distributed` standard library.
+  * Primitives
+    * remote references - can be used from any process to refer to an 
+      object stored on that process
+      * `Future` - not rewritable.
+      * `RemoteChannel` - rewritable so good for multiple processes.
+    * remote call - request by one process to call a certain function on 
+      another porcess
+      * returns a `Future` immediately, that you can `wait` and `fetch`.
+  * Syntax
+    * `remotecall(f, workerid, args..., kwargs...)` creates a future.
+      * `remotecall_fetch` fetches the value immediately.
+    * `@spawnat workerid expr` does the same thing but for expressions
+       * you can `@spawnat :any` to pick whichever or the owners of 
+         whatever futures are already defined.
+  * Considerations 
+    * Your code must be available about the worker. Use `@everywhere` to 
+      run a piece of code in all workers so that they all have the 
+      same environment. You can also use the `-L` julia argument to load
+      a file on startup.
+    * Global variables are transferred when they are in closures.
+    * Minimize data movement as much as possible.
+    * You can run parallel for loops by using `@distributed`.
+      * `@distributed (+) for i = 1:2000000` will combine the results with
+        a specific reduction (+).
+      * if you are iterating on an array you need to use `SharedArrays`.
+    * Use `pmap()` if you want to run an expensive iteration on multiple 
+      elements. Use `@distributed` if the calculation is rather tiny.
+  * Setting up a cluster
+    * local cluster `-p`
+    * remote cluster using `--machine-file`, definition is:
+      `[count*][user@]host[:port] [bind_addr[:port]]`
+    * `addprocs`, `rmprocs`, `workers` - you can manage processes
 * GPU Computing
-  * You can run Julia code natively on GPUs using the JuliaGPU.org packages.
+  * You can run Julia code natively on GPUs using the JuliaGPU.org 
+    packages.

@@ -251,3 +251,22 @@ take!(channel)
 take!(channel)
 take!(channel)
 take!(channel) # Errors out because it's exhausted/closed
+
+## Distributed computing
+
+using Distributed
+
+r = remotecall(rand, 1, 2, 2)
+s = @spawnat 1 1 .+ fetch(r)
+fetch(s)
+
+@distributed (+) for i in 1:2000000
+    Int(rand(Bool))
+end
+
+using SharedArrays
+a = SharedArray{Float64}(10)
+@distributed for i = 1:10
+    a[i] = i
+end
+a
