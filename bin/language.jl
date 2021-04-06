@@ -270,3 +270,24 @@ a = SharedArray{Float64}(10)
     a[i] = i
 end
 a
+
+## External Commands 
+
+mycommand = `echo hello`
+typeof(mycommand)
+run(mycommand);
+
+read(mycommand, String)
+
+open(`less`, "w", stdout) do io 
+    for i = 1:3
+        println(io, i)
+    end
+end
+
+pipeline(`echo hello`, `sort`) |> run
+
+pipeline(`cut -d: -f3 /etc/passwd`, `sort -n`, `tail -n5`) |> run
+
+run(`echo hello` & `echo world`)
+

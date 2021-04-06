@@ -751,3 +751,16 @@ end
 * GPU Computing
   * You can run Julia code natively on GPUs using the JuliaGPU.org 
     packages.
+
+## Running External Programs
+
+* Now this is going to be useful for the Singer spec to be used.
+* shell, Perl, and Ruby commands are referenced with backticks.
+* This creates a `Cmd` object that can be connected to pipes, run, read, 
+  and written to. It does not capture output by default.
+* You can `open` to read from or write to an external command.
+* You can parse the comand just like a string
+* Use `$` to interpolate string literals. 
+* You can use `pipeline` to construct a pipeline
+* You can use `&` to run pipelines in parallel, and also put that in `pipeline`
+
