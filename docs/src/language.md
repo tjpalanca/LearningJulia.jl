@@ -764,3 +764,85 @@ end
 * You can use `pipeline` to construct a pipeline
 * You can use `&` to run pipelines in parallel, and also put that in `pipeline`
 
+## Miscellaneous items
+
+* Use Sys. `iswindows()` `isapple()` `isunix()` `islinux()` `isbsd()` 
+  `isfreebsd()` to maange operating system variation.
+
+## Performance Tips
+
+* Avoid global variables
+* Use `@time` to profile and watch out for memory allocation
+* Make containers contain as concrete a type as possible.
+* Type declarations are helpful in:
+  * Field names of `struct`s - it's also better to parameterize the types of 
+    fields in the types themselves.
+* Avoid fields with absctract containers.
+* Annotate values taken from untyped locations.
+* Make Julia specialize on types as much as possible.
+* If you have a lot of branching if statements likely you will want to break 
+  that up into method definitions.
+* Write type stable functions, or annotate function return types
+* Avoid changing the type of a variable, or annotate variable types
+* Don't abuse multiple dispatch by encoding values as types
+* Access arrays in column-major order (how it's stored in memory)
+* Pre-allocate outputs
+* Fuse vectorized functions
+* Use views to modify in place (`view` or `@views` macro on the expression)
+* Copying data is sometimes good if the original memory map has already been 
+  jumbled up or shuffled
+* Small fixed size vectors, use `StaticArrays.jl`
+* Avoid string interpolation for IO as it builds a string instead of copying
+  directly onto the connection
+
+## Workflow Tips
+
+* Put the code in a temporary module ("Tmp.jl") and then put the test code in 
+  a test code in another module ("Tst.jl") so that you can keep `include`-ing
+  them as you develop your code.
+* Use `Revise.jl`: make sure to load Revise before loading any code, so that 
+  any modules are going to be updated as they are loaded, but there are 
+  limitations:
+  * Changes to type defintitions
+  * Changes to vars and funcs that have the same name.
+
+## Style Guide
+
+* 4 indentation level 
+* Use functions as soon as possible instead of scripts
+* Avoid writing overly specific types
+* Handle excess argument diversity in the caller
+* Use ! to demarcate non-pure functions.
+* Avoid strange Type Unions
+* Avoid very very elaborate container types
+* Avoid creating primitive types
+* Provide default implementations for abstract types
+* Function naming
+  * Smoosh words together (i.e. `haskey`) and don't abbreviate words
+  * Use underscores when there are different concepts, i.e. `remotecall_fetch`
+* Function arguments 
+  * Functions first so you can use `do` syntax
+  * I/O Stream
+  * object being mutated
+  * Type
+  * object not being mutated
+  * key
+  * value 
+  * All others
+  * Varargs
+  * Kwargs
+* Avoid errors rather than using try catch to catch them
+* Don't parenthesize conditions (`if a == b` not `if (a == b)`)
+* Don't overuse splicing 
+* Prefer instances to types
+* Don't use unnecessary static parameters
+* Don't overuse macros. If you use `eval` in a macro it's likely because you're
+  using it to replace a function
+* Don't expose unsafe operations at the interface level
+* Don't overload methods of base container types, define your own type based on
+  a common abstract type
+* Avoid type piracy if you aren't collborated with the package imported
+* Use `isa` or `<:` to test types not `==`
+* Use the least disruptive numeric types so as not to change the type of the 
+  input argument
+
