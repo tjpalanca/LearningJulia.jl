@@ -74,8 +74,7 @@
 
 +++
 [<artifact-name>]
-git-tree-sha = "Tar.tree_hash(IOBuffer(inflate_gzip(filename)))"
-# Git Tree Hash of the downloaded content
+git-tree-sha = "Tar.tree_hash(IOBuffer(inflate_gzip(filename)))" # Git Tree Hash of the downloaded content
 
   [[<artifact-name.download>]]
   url = "<url-of-artifact>
@@ -88,8 +87,3 @@ git-tree-sha = "Tar.tree_hash(IOBuffer(inflate_gzip(filename)))"
 * Artifacts are better than using the package directory because:
   * it makes package installation stateless
   * you can share artifacts between different package versions
-
-#### Using Artifacts
-
-
-* A
