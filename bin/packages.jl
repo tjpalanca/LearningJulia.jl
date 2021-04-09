@@ -20,4 +20,5 @@ end
 
 iris_dataset_path = artifact_path(iris_hash)
 
-CSV.read(joinpath(artifact"iris", "iris.csv"), DataFrame)
+CSV.File(joinpath(artifact"iris", "iris.csv")) |>
+    DataFrame 

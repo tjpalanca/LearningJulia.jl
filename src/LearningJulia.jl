@@ -1,9 +1,8 @@
 module LearningJulia
 
-export greet, multiply
+include("GenerativeArt.jl")
+import .GenerativeArt
 
-greet() = print("Hello World!")
-
-multiply(x) = x * 200e3
+export GenerativeArt
 
 end # module
