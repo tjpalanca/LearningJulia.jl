@@ -20,15 +20,18 @@ Using: `LibPQ.jl`, `Octo.jl`, `Stipple.jl`
 * I'm able to transpose this into a `DataFrame`. I don't quite understand
   the many different tabular structures yet (I'm used to the built-in dataframe 
   in R), but I can see how that works. See [Data Frames](@ref).
+
 ### Writing 
 
 * DDL Statements have to be written manually
 * Transactions have to be written manually (but easily wrapped)
 * Yes I can insert stuff, but still need SQL knowledge
+
 ## ODBC.jl 
 
 * This is a more standard interface, but it's less feature rich. I'm skipping 
   this for now but this might be the way to get to lesser known DBs.
+
 ## Octo.jl 
 
 * It's a SQL Query DSL in Julia. Amazing, is this going to be like the 
@@ -45,7 +48,7 @@ Using: `LibPQ.jl`, `Octo.jl`, `Stipple.jl`
 * I was able to query a bit and get in tune with the DSL, seems ok as a web
   app backend ORM but not for data analysis.
 
-# Query.jl 
+## Query.jl 
 
 > The package currently provides working implementations for in-memory data
 > sources, but will eventually be able to translate queries into e.g. SQL. There
