@@ -30,7 +30,16 @@ do some creative coding in Julia.
 * We create Luxor.jl functions that construct objects, and then 
   Javis `Objects` essentially are rendered for each frame from 
   closures defined through those Luxor objects.
-
+* Concepts
+  * `Object` calls a function that draws something onto the canvas.
+    * `Object` consists of `Frames`, a `func` drawing function, and an
+      optional `Animation`
+  * `Frames` can be defined as a range (`1:100`), same as previous (`:same`) or
+    `RFrames` relative to the previous index.
+    * Don't define a frame range > than the background.
+* Okay after than brouhaha with the display required on cloud servers, this 
+  package is growing quite fast on me. I'm still amazed at how fast things
+  just render!
 
 ## Compose.jl
 
