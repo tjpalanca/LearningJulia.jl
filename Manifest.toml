@@ -1281,6 +1281,12 @@ git-tree-sha1 = "c8abc88faa3f7a3950832ac5d6e690881590d6dc"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
 version = "1.1.0"
 
+[[PeriodicTable]]
+deps = ["Base64", "Test", "Unitful"]
+git-tree-sha1 = "7ae2c62e409727afb002d65436a3ca716d23f94f"
+uuid = "7b2266bf-644c-5ea3-82d8-af4bbd25a884"
+version = "1.0.0"
+
 [[Pidfile]]
 deps = ["FileWatching", "Test"]
 git-tree-sha1 = "1be8660b2064893cd2dae4bd004b589278e4440d"
@@ -1673,6 +1679,12 @@ version = "1.0.2"
 
 [[Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
+
+[[Unitful]]
+deps = ["ConstructionBase", "Dates", "LinearAlgebra", "Random"]
+git-tree-sha1 = "c6bbc170505c5ea36593a0072b61d3be8bf868ae"
+uuid = "1986cc42-f94f-5a68-af5c-568840ba703d"
+version = "1.7.0"
 
 [[VectorizationBase]]
 deps = ["ArrayInterface", "Hwloc", "IfElse", "Libdl", "LinearAlgebra"]

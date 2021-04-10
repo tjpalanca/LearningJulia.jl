@@ -40,6 +40,9 @@ do some creative coding in Julia.
 * Okay after than brouhaha with the display required on cloud servers, this 
   package is growing quite fast on me. I'm still amazed at how fast things
   just render!
+* You can add LaTeX whereas Luxor.jl does not offer this functionality. It 
+  does require some npm package involving mathjax though.
+* 
 
 ## Compose.jl
 
