@@ -21,7 +21,8 @@ makedocs(
         "Data Science" => [
             "Data Frames" => "dataframes.md",
             "Computation" => "computation.md",
-            "Visualization" => "visualization.md"
+            "Visualization" => "visualization.md",
+            "Reinforcement Learning" => "reinforcement.md"
         ],
         "Interoperability" => [
             "Python" => "python.md"
