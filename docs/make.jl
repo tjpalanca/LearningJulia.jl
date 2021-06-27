@@ -16,13 +16,15 @@ makedocs(
         "Software Development" => [
             "Databases" => "databases.md",
             "Object-Relational Mapping" => "orm.md",
-            "Web Development" => "web.md"
+            "Web Development" => "web.md",
+            "Files" => "files.md"
         ],
         "Data Science" => [
             "Data Frames" => "dataframes.md",
             "Computation" => "computation.md",
             "Visualization" => "visualization.md",
-            "Reinforcement Learning" => "reinforcement.md"
+            "Reinforcement Learning" => "reinforcement.md",
+            "Geospatial" => "geospatial.md"
         ],
         "Interoperability" => [
             "Python" => "python.md"

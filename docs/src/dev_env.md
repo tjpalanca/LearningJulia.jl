@@ -22,6 +22,8 @@
   amazingly rich ecosystem!
 * Inline results are something else! Much better than a notebook interface and 
   better than also constantly looking at the console.
+* Debugging is quite interesting but I'm looking at debugging as simple as R's
+  `browser()`. Sadly I don't think this is that easy.
 
 ## OhMyREPL.jl
 
